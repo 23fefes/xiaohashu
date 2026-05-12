@@ -3,6 +3,8 @@ package com.school.xiaohashu.auth.controller;
 import com.school.framework.biz.operationlog.aspect.ApiOperationLog;
 import com.school.framework.common.response.Response;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -24,6 +26,11 @@ public class TestController {
                 .nickName("犬小哈")
                 .createTime(LocalDateTime.now())
                 .build());
+    }
+    @PostMapping("/test3")
+    @ApiOperationLog(description = "测试接口3")
+    public Response<User> test3(@RequestBody User user) {
+        return Response.success(user);
     }
 }
 
