@@ -2,6 +2,7 @@ package com.school.xiaohashu.auth.controller;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.school.framework.common.contant.DateConstants;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class User {
     /**
      * 昵称
      */
+    @NotBlank(message = "昵称不能为空")
     private String nickName;
 
     /**
