@@ -1,4 +1,4 @@
-package com.school.xiaohashu.auth.config;
+package com.school.framework.jackson.config;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,21 +13,24 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.YearMonthSerializer;
 import com.school.framework.common.contant.DateConstants;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import com.school.framework.common.util.JsonUtils;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
-
-
-@Configuration
-public class JacksonConfig {
+/**
+ * @author: 犬小哈
+ * @date: 2024/4/15 13:50
+ * @version: v1.0.0
+ * @description: 自动配置自定义的 Jackson
+ **/
+@AutoConfiguration
+public class JacksonAutoConfiguration {
 
     @Bean
     public ObjectMapper objectMapper() {
@@ -37,7 +40,6 @@ public class JacksonConfig {
         // 忽略未知属性
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
         // 设置凡是为 null 的字段，返参中均不返回，请根据项目组约定是否开启
         // objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
@@ -47,7 +49,6 @@ public class JacksonConfig {
         // JavaTimeModule 用于指定序列化和反序列化规则
         JavaTimeModule javaTimeModule = new JavaTimeModule();
 
-        // 支持 LocalDateTime、LocalDate、LocalTime
         // 支持 LocalDateTime、LocalDate、LocalTime
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateConstants.DATE_FORMAT_Y_M_D_H_M_S));
         javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateConstants.DATE_FORMAT_Y_M_D_H_M_S));
@@ -61,7 +62,10 @@ public class JacksonConfig {
 
         objectMapper.registerModule(javaTimeModule);
 
+        // 初始化 JsonUtils 中的 ObjectMapper
+        JsonUtils.init(objectMapper);
+
         return objectMapper;
     }
-}
 
+}
