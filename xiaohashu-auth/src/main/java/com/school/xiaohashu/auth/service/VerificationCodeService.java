@@ -1,4 +1,4 @@
-package com.school.xiaohashu.auth.service.impl;
+package com.school.xiaohashu.auth.service;
 
 import com.school.framework.common.response.Response;
 import com.school.xiaohashu.auth.model.vo.verificationcode.SendVerificationCodeReqVO;

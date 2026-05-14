@@ -6,6 +6,7 @@ import com.school.framework.common.response.Response;
 import com.school.xiaohashu.auth.constant.RedisKeyConstants;
 import com.school.xiaohashu.auth.enums.ResponseCodeEnum;
 import com.school.xiaohashu.auth.model.vo.verificationcode.SendVerificationCodeReqVO;
+import com.school.xiaohashu.auth.service.VerificationCodeService;
 import com.school.xiaohashu.auth.sms.AliyunSmsHelper;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
-public class VerificationCodeServiceImpl implements VerificationCodeService{
+public class VerificationCodeServiceImpl implements VerificationCodeService {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;

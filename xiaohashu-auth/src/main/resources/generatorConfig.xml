@@ -50,5 +50,25 @@
                enableUpdateByExample="false"
                enableDeleteByExample="false"
                enableSelectByExample="false"/>
+        <table tableName="t_permission" domainObjectName="PermissionDO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"/>
+        <table tableName="t_role" domainObjectName="RoleDO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"/>
+        <table tableName="t_role_permission_rel" domainObjectName="RolePermission"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"/>
+        <table tableName="t_user_role_rel" domainObjectName="UserRoleDO"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"/>
     </context>
 </generatorConfiguration>
