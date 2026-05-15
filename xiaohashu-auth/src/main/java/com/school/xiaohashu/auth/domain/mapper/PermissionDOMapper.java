@@ -2,6 +2,8 @@ package com.school.xiaohashu.auth.domain.mapper;
 
 import com.school.xiaohashu.auth.domain.dataobject.PermissionDO;
 
+import java.util.List;
+
 public interface PermissionDOMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface PermissionDOMapper {
     int updateByPrimaryKeySelective(PermissionDO record);
 
     int updateByPrimaryKey(PermissionDO record);
+
+    List<PermissionDO> selectAppEnabledList();
 }

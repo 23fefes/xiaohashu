@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RolePermission {
+public class RolePermissionDO {
     private Long id;
 
     private Long roleId;

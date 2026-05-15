@@ -3,7 +3,7 @@
 <mapper namespace="com.school.xiaohashu.auth.domain.mapper.UserDOMapper">
   <resultMap id="BaseResultMap" type="com.school.xiaohashu.auth.domain.dataobject.UserDO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="username" jdbcType="VARCHAR" property="nickname" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -15,6 +15,12 @@
     <include refid="Base_Column_List" />
     from t_user
     where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByPhone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where phone = #{phone, jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_user

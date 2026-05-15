@@ -29,6 +29,10 @@
     delete from t_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
+  <select id="selectAppEnabledList" resultMap="BaseResultMap">
+    select id, name, permission_key from t_permission
+    where status = 0 and type = 3 and is_deleted = 0
+  </select>
   <insert id="insert" parameterType="com.school.xiaohashu.auth.domain.dataobject.PermissionDO">
     insert into t_permission (id, parent_id, `name`, 
       `type`, menu_url, menu_icon, 
