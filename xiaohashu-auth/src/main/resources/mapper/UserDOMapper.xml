@@ -3,7 +3,7 @@
 <mapper namespace="com.school.xiaohashu.auth.domain.mapper.UserDOMapper">
   <resultMap id="BaseResultMap" type="com.school.xiaohashu.auth.domain.dataobject.UserDO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="nickname" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -26,11 +26,17 @@
     delete from t_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.school.xiaohashu.auth.domain.dataobject.UserDO">
-    insert into t_user (id, username, create_time, 
-      update_time)
-    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.school.xiaohashu.auth.domain.dataobject.UserDO" useGeneratedKeys="true" keyProperty="id">
+    insert into t_user (id, xiaohashu_id, `password`,
+                        username, avatar, birthday,
+                        background_img, phone, sex,
+                        `status`, introduction, create_time,
+                        update_time, is_deleted)
+    values (#{id,jdbcType=BIGINT}, #{xiaohashuId,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+            #{username,jdbcType=VARCHAR}, #{avatar,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE},
+            #{backgroundImg,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT},
+            #{status,jdbcType=TINYINT}, #{introduction,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+            #{updateTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.school.xiaohashu.auth.domain.dataobject.UserDO">
     insert into t_user

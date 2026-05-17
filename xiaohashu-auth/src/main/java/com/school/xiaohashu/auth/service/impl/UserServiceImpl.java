@@ -11,8 +11,10 @@ import com.school.framework.common.response.Response;
 import com.school.framework.common.util.JsonUtils;
 import com.school.xiaohashu.auth.constant.RedisKeyConstants;
 import com.school.xiaohashu.auth.constant.RoleConstants;
+import com.school.xiaohashu.auth.domain.dataobject.RoleDO;
 import com.school.xiaohashu.auth.domain.dataobject.UserDO;
 import com.school.xiaohashu.auth.domain.dataobject.UserRoleDO;
+import com.school.xiaohashu.auth.domain.mapper.RoleDOMapper;
 import com.school.xiaohashu.auth.domain.mapper.UserDOMapper;
 import com.school.xiaohashu.auth.domain.mapper.UserRoleDOMapper;
 import com.school.xiaohashu.auth.enums.LoginTypeEnum;
@@ -28,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,6 +46,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleDOMapper userRoleDOMapper;
     @Resource
     private TransactionTemplate transactionTemplate;
+    @Resource
+    private RoleDOMapper roleDOMapper;
     /**
      * 登录与注册
      *
@@ -113,6 +118,14 @@ public class UserServiceImpl implements UserService {
         return Response.success(tokenInfo.tokenValue);
     }
 
+    @Override
+    public Response<?> logout(Long userId) {
+        // 退出登录 (指定用户 ID)
+        StpUtil.logout(userId);
+
+        return Response.success();
+    }
+
     /**
      * 系统自动注册用户
      * @param phone
@@ -129,7 +142,7 @@ public class UserServiceImpl implements UserService {
                 UserDO userDO = UserDO.builder()
                         .phone(phone)
                         .xiaohashuId(String.valueOf(xiaohashuId)) // 自动生成小红书号 ID
-                        .nickname("小红薯" + xiaohashuId) // 自动生成昵称, 如：小红薯10000
+                        .username("小红薯" + xiaohashuId) // 自动生成昵称, 如：小红薯10000
                         .status(StatusEnum.ENABLE.getValue()) // 状态为启用
                         .createTime(LocalDateTime.now())
                         .updateTime(LocalDateTime.now())
@@ -153,12 +166,14 @@ public class UserServiceImpl implements UserService {
                         .build();
                 userRoleDOMapper.insert(userRoleDO);
 
-                // 将该用户的角色 ID 存入 Redis 中
-                List<Long> roles = Lists.newArrayList();
-                roles.add(RoleConstants.COMMON_USER_ROLE_ID);
-                String userRolesKey = RedisKeyConstants.buildUserRoleKey(phone);
-                redisTemplate.opsForValue().set(userRolesKey, JsonUtils.toJsonString(roles));
+                RoleDO roleDO = roleDOMapper.selectByPrimaryKey(RoleConstants.COMMON_USER_ROLE_ID);
 
+                // 将该用户的角色 ID 存入 Redis 中，指定初始容量为 1，这样可以减少在扩容时的性能开销
+                List<String> roles = new ArrayList<>(1);
+                roles.add(roleDO.getRoleKey());
+
+                String userRolesKey = RedisKeyConstants.buildUserRoleKey(userId);
+                redisTemplate.opsForValue().set(userRolesKey, JsonUtils.toJsonString(roles));
                 return userId;
             } catch (Exception e) {
                 status.setRollbackOnly(); // 标记事务为回滚

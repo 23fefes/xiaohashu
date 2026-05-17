@@ -1,5 +1,6 @@
 package com.school.framework.common.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.school.framework.common.exception.BaseExceptionInterface;
 import com.school.framework.common.exception.BizException;
 import lombok.Data;
@@ -11,8 +12,10 @@ public class Response<T> implements Serializable {
     // 是否成功，默认为 true
     private boolean success = true;
     // 响应消息
+    @JsonProperty("msg")
     private String message;
     // 异常码
+    @JsonProperty("code")
     private String errorCode;
     // 响应数据
     private T data;

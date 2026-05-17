@@ -19,7 +19,7 @@ public class UserDO {
 
     private String password;
 
-    private String nickname;
+    private String username;
 
     private String avatar;
 

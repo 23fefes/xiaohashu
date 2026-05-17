@@ -49,6 +49,6 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         });*/
 
         redisTemplate.opsForValue().set(key,verificationCode,3, TimeUnit.MINUTES);
-        return Response.success();
+        return Response.success(verificationCode);
     }
 }
