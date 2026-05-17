@@ -2,6 +2,7 @@ package com.school.xiaohashu.auth.controller;
 
 import com.school.framework.biz.operationlog.aspect.ApiOperationLog;
 import com.school.framework.common.response.Response;
+import com.school.xiaohashu.auth.model.vo.user.UpdatePasswordReqVO;
 import com.school.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 import com.school.xiaohashu.auth.service.UserService;
 import jakarta.annotation.Resource;
@@ -25,7 +26,12 @@ public class UserController {
 
     @PostMapping("/logout")
     @ApiOperationLog(description = "账号登出")
-    public Response<?> logout(@RequestHeader("userId") String userId) {
-        return userService.logout(Long.valueOf(userId));
+    public Response<?> logout() {
+        return userService.logout();
+    }
+    @PostMapping("/password/update")
+    @ApiOperationLog(description = "修改密码")
+    public Response<?> updatePassword(@Validated @RequestBody UpdatePasswordReqVO updatePasswordReqVO) {
+        return userService.updatePassword(updatePasswordReqVO);
     }
 }

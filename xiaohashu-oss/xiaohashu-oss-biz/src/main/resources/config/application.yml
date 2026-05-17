@@ -1,0 +1,7 @@
+server:
+  port: 8081
+spring:
+  profiles:
+    active: prod
+storage:
+  type: minio # 对象存储类型

@@ -2,8 +2,8 @@ package com.school.xiaohashu.auth.service.impl;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
-import com.beust.jcommander.internal.Lists;
 import com.google.common.base.Preconditions;
+import com.school.framework.biz.context.holder.LoginUserContextHolder;
 import com.school.framework.common.enums.DeletedEnum;
 import com.school.framework.common.enums.StatusEnum;
 import com.school.framework.common.exception.BizException;
@@ -19,12 +19,14 @@ import com.school.xiaohashu.auth.domain.mapper.UserDOMapper;
 import com.school.xiaohashu.auth.domain.mapper.UserRoleDOMapper;
 import com.school.xiaohashu.auth.enums.LoginTypeEnum;
 import com.school.xiaohashu.auth.enums.ResponseCodeEnum;
+import com.school.xiaohashu.auth.model.vo.user.UpdatePasswordReqVO;
 import com.school.xiaohashu.auth.model.vo.user.UserLoginReqVO;
 import com.school.xiaohashu.auth.service.UserService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -48,6 +50,9 @@ public class UserServiceImpl implements UserService {
     private TransactionTemplate transactionTemplate;
     @Resource
     private RoleDOMapper roleDOMapper;
+    @Resource
+    private PasswordEncoder passwordEncoder;
+
     /**
      * 登录与注册
      *
@@ -61,6 +66,10 @@ public class UserServiceImpl implements UserService {
         Integer type = userLoginReqVO.getType();
 
         LoginTypeEnum loginTypeEnum = LoginTypeEnum.valueOf(type);
+
+        if (Objects.isNull(loginTypeEnum)) {
+            throw new BizException(ResponseCodeEnum.LOGIN_TYPE_ERROR);
+        }
 
         Long userId = null;
 
@@ -98,7 +107,28 @@ public class UserServiceImpl implements UserService {
                 }
                 break;
             case PASSWORD: // 密码登录
-                // todo
+                String password = userLoginReqVO.getPassword();
+                // 根据手机号查询
+                UserDO userDO1 = userDOMapper.selectByPhone(phone);
+
+                // 判断该手机号是否注册
+                if (Objects.isNull(userDO1)) {
+                    throw new BizException(ResponseCodeEnum.USER_NOT_FOUND);
+                }
+
+                // 拿到密文密码
+                String encodePassword = userDO1.getPassword();
+
+                // 匹配密码是否一致
+                boolean isPasswordCorrect = passwordEncoder.matches(password, encodePassword);
+
+                System.out.println(password+encodePassword+userDO1.getPhone());
+                // 如果不正确，则抛出业务异常，提示用户名或者密码不正确
+                if (!isPasswordCorrect) {
+                    throw new BizException(ResponseCodeEnum.PHONE_OR_PASSWORD_ERROR);
+                }
+
+                userId = userDO1.getId();
 
                 break;
             default:
@@ -119,10 +149,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Response<?> logout(Long userId) {
+    public Response<?> logout() {
         // 退出登录 (指定用户 ID)
-        StpUtil.logout(userId);
+        StpUtil.logout(LoginUserContextHolder.getUserId());
 
+        return Response.success();
+    }
+
+    @Override
+    public Response<?> updatePassword(UpdatePasswordReqVO updatePasswordReqVO) {
+        // 新密码
+        String newPassword = updatePasswordReqVO.getNewPassword();
+        // 密码加密
+        String encodePassword = passwordEncoder.encode(newPassword);
+
+        // 获取当前请求对应的用户 ID
+        Long userId = LoginUserContextHolder.getUserId();
+
+        UserDO userDO = UserDO.builder()
+                .id(userId)
+                .password(encodePassword)
+                .updateTime(LocalDateTime.now())
+                .build();// 更新密码
+        userDOMapper.updateByPrimaryKeySelective(userDO);
         return Response.success();
     }
 
