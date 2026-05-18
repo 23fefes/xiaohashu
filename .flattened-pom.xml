@@ -20,6 +20,9 @@
     <modules>
         <module>xiaohashu-auth</module>
         <module>xiaoha-framework</module>
+        <module>xiaohashu-gateway</module>
+        <module>xiaohashu-oss</module>
+        <module>xiaohashu-user</module>
     </modules>
 
     <properties>
@@ -39,22 +42,23 @@
 
         <spring-boot.version>3.0.2</spring-boot.version>
         <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
-        <spring-cloud.version>2022.0.0</spring-cloud.version>
+        <spring-cloud.version>2022.0.5</spring-cloud.version>
 
         <jackson.version>2.16.1</jackson.version>
         <mysql-connector-java.version>8.0.29</mysql-connector-java.version>
-        <druid.version>1.2.23</druid.version>
+        <druid.version>1.2.28</druid.version>
         <mybatis-generator-maven-plugin.version>1.3.5</mybatis-generator-maven-plugin.version>
 
         <flatten-maven-plugin.version>1.7.3</flatten-maven-plugin.version>
 
-        <sa-token.version>1.38.0</sa-token.version>
+        <sa-token.version>1.37.0</sa-token.version>
 
         <guava.version>33.0.0-jre</guava.version>
         <hutool.version>5.8.26</hutool.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <dypnsapi.version>2.0.0</dypnsapi.version>
-
+        <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
+        <minio.version>8.2.1</minio.version>
     </properties>
 
 
@@ -62,10 +66,27 @@
     <!-- 统一依赖管理 -->
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+
             <!-- Sa-Token 整合 Redis （使用 jackson 序列化方式） -->
             <dependency>
                 <groupId>cn.dev33</groupId>
                 <artifactId>sa-token-redis-jackson</artifactId>
+                <version>${sa-token.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-reactor-spring-boot3-starter</artifactId>
                 <version>${sa-token.version}</version>
             </dependency>
 
@@ -141,6 +162,11 @@
             <dependency>
                 <groupId>com.school</groupId>
                 <artifactId>xiaoha-common</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.school.framework.biz.context</groupId>
+                <artifactId>xiaoha-spring-boot-starter-biz-context</artifactId>
                 <version>1.0-SNAPSHOT</version>
             </dependency>
 

@@ -26,6 +26,16 @@
             <groupId>com.school.framework.biz.context</groupId>
             <artifactId>xiaoha-spring-boot-starter-biz-context</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-user-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-user-api</artifactId>
+        </dependency>
+
         <!-- 密码加密 -->
         <dependency>
             <groupId>org.springframework.security</groupId>
@@ -50,26 +60,10 @@
             <artifactId>xiaoha-spring-boot-starter-biz-operationlog</artifactId>
         </dependency>
 
-        <!-- Mybatis -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- MySQL 驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- Druid 数据库连接池 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-3-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -139,10 +133,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-            </plugin>
+
         </plugins>
     </build>
 

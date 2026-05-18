@@ -22,6 +22,7 @@
         <module>xiaoha-framework</module>
         <module>xiaohashu-gateway</module>
         <module>xiaohashu-oss</module>
+        <module>xiaohashu-user</module>
     </modules>
 
     <properties>
@@ -58,6 +59,7 @@
         <dypnsapi.version>2.0.0</dypnsapi.version>
         <transmittable-thread-local.version>2.14.2</transmittable-thread-local.version>
         <minio.version>8.2.1</minio.version>
+        <feign-form.version>3.8.0</feign-form.version>
     </properties>
 
 
@@ -65,6 +67,25 @@
     <!-- 统一依赖管理 -->
     <dependencyManagement>
         <dependencies>
+            <!-- Feign 表单提交 -->
+            <dependency>
+                <groupId>io.github.openfeign.form</groupId>
+                <artifactId>feign-form</artifactId>
+                <version>${feign-form.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-user-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-oss-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
@@ -195,6 +216,13 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-user-api</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
 
             <!-- MySQL 驱动 -->
             <dependency>
