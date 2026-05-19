@@ -23,6 +23,7 @@
         <module>xiaohashu-gateway</module>
         <module>xiaohashu-oss</module>
         <module>xiaohashu-user</module>
+        <module>xiaohashu-kv</module>
     </modules>
 
     <properties>
@@ -72,6 +73,12 @@
                 <groupId>io.github.openfeign.form</groupId>
                 <artifactId>feign-form</artifactId>
                 <version>${feign-form.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-kv-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>

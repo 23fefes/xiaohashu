@@ -30,9 +30,9 @@ public class AuthController {
         return authService.logout();
     }
 
-    /*@PostMapping("/password/update")
+    @PostMapping("/password/update")
     @ApiOperationLog(description = "修改密码")
     public Response<?> updatePassword(@Validated @RequestBody UpdatePasswordReqVO updatePasswordReqVO) {
         return authService.updatePassword(updatePasswordReqVO);
-    }*/
+    }
 }
