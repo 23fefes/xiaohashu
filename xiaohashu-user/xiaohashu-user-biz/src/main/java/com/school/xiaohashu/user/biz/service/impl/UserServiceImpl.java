@@ -19,6 +19,7 @@ import com.school.xiaohashu.user.biz.domain.mapper.UserRoleDOMapper;
 import com.school.xiaohashu.user.biz.enums.ResponseCodeEnum;
 import com.school.xiaohashu.user.biz.enums.SexEnum;
 import com.school.xiaohashu.user.biz.model.vo.UpdateUserInfoReqVO;
+import com.school.xiaohashu.user.biz.rpc.DistributedIdGeneratorRpcService;
 import com.school.xiaohashu.user.biz.rpc.OssRpcService;
 import com.school.xiaohashu.user.biz.service.UserService;
 import com.school.xiaohashu.user.dto.req.FindUserByPhoneReqDTO;
@@ -53,6 +54,9 @@ public class UserServiceImpl implements UserService {
     private RoleDOMapper roleDOMapper;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private DistributedIdGeneratorRpcService distributedIdGeneratorRpcService;
+
 
     /**
      * 更新用户信息
@@ -170,11 +174,17 @@ public class UserServiceImpl implements UserService {
 
         // 否则注册新用户
         // 获取全局自增的小哈书 ID
-        Long xiaohashuId = redisTemplate.opsForValue().increment(RedisKeyConstants.XIAOHASHU_ID_GENERATOR_KEY);
+        // RPC: 调用分布式 ID 生成服务生成小哈书 ID
+        String xiaohashuId = distributedIdGeneratorRpcService.getXiaohashuId();
+
+        // RPC: 调用分布式 ID 生成服务生成用户 ID
+        String userIdStr = distributedIdGeneratorRpcService.getUserId();
+        Long userId = Long.valueOf(userIdStr);
 
         UserDO userDO = UserDO.builder()
+                .id(userId)
                 .phone(phone)
-                .xiaohashuId(String.valueOf(xiaohashuId)) // 自动生成小红书号 ID
+                .xiaohashuId(xiaohashuId) // 自动生成小红书号 ID
                 .username("小红薯" + xiaohashuId) // 自动生成昵称, 如：小红薯10000
                 .status(StatusEnum.ENABLE.getValue()) // 状态为启用
                 .createTime(LocalDateTime.now())
@@ -186,7 +196,7 @@ public class UserServiceImpl implements UserService {
         userDOMapper.insert(userDO);
 
         // 获取刚刚添加入库的用户 ID
-        Long userId = userDO.getId();
+        // Long userId = userDO.getId();
 
         // 给该用户分配一个默认角色
         UserRoleDO userRoleDO = UserRoleDO.builder()

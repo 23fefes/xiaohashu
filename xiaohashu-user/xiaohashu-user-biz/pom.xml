@@ -101,6 +101,10 @@
             <groupId>com.school</groupId>
             <artifactId>xiaoha-spring-boot-starter-jackon</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-distributed-id-generator-api</artifactId>
+        </dependency>
 
     </dependencies>
 

@@ -54,6 +54,11 @@
             <artifactId>xiaohashu-kv-api</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-distributed-id-generator-api</artifactId>
+        </dependency>
+
     </dependencies>
 </project>
 

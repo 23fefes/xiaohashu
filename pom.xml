@@ -24,6 +24,9 @@
         <module>xiaohashu-oss</module>
         <module>xiaohashu-user</module>
         <module>xiaohashu-kv</module>
+        <module>xiaohashu-distributed-id-generator</module>
+        <module>xiaohashu-distributed-id-generator/xiaohashu-distributed-id-generator-api</module>
+        <module>xiaohashu-distributed-id-generator/xiaohashu-distributed-id-generator-biz</module>
     </modules>
 
     <properties>
@@ -85,6 +88,12 @@
                 <groupId>com.school</groupId>
                 <artifactId>xiaohashu-user-api</artifactId>
                 <version>${revision}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-distributed-id-generator-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
 
             <dependency>
