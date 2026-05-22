@@ -18,6 +18,11 @@
     <dependencies>
         <dependency>
             <groupId>com.school</groupId>
+            <artifactId>xiaohashu-oss-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.school</groupId>
             <artifactId>xiaoha-common</artifactId>
         </dependency>
 
@@ -44,11 +49,28 @@
         </dependency>
 
 
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Redis 连接池 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+        </dependency>
+
         <!-- Mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-user-api</artifactId>
+        </dependency>
+
 
         <!-- MySQL 驱动 -->
         <dependency>
@@ -78,6 +100,10 @@
         <dependency>
             <groupId>com.school</groupId>
             <artifactId>xiaoha-spring-boot-starter-jackon</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.school</groupId>
+            <artifactId>xiaohashu-distributed-id-generator-api</artifactId>
         </dependency>
 
     </dependencies>
