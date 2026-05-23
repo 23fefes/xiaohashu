@@ -1,7 +1,9 @@
 package com.school.xiaohashu.user.biz.domain.mapper;
 
 import com.school.xiaohashu.user.biz.domain.dataobject.UserDO;
+import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 
 
 public interface UserDOMapper {
@@ -22,5 +24,13 @@ public interface UserDOMapper {
      * @return
      */
     UserDO selectByPhone(String phone);
+
+    /**
+     * 批量查询用户信息
+     *
+     * @param ids
+     * @return
+     */
+    List<UserDO> selectByIds(@Param("ids") List<Long> ids);
 
 }

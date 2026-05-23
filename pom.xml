@@ -33,6 +33,9 @@
         <module>xiaohashu-user-relation</module>
         <module>xiaohashu-user-relation/xiaohashu-user-relation-api</module>
         <module>xiaohashu-user-relation/xiaohashu-user-relation-biz</module>
+        <module>xiaohashu-count</module>
+        <module>xiaohashu-count/xiaohashu-count-api</module>
+        <module>xiaohashu-count/xiaohashu-count-biz</module>
     </modules>
 
     <properties>
@@ -72,6 +75,7 @@
         <feign-form.version>3.8.0</feign-form.version>
         <caffeine.version>3.1.8</caffeine.version>
         <rocketmq.version>2.2.3</rocketmq.version>
+        <buffertrigger.version>0.2.21</buffertrigger.version>
     </properties>
 
 
@@ -97,7 +101,11 @@
                 <artifactId>feign-form</artifactId>
                 <version>${feign-form.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.github.phantomthief</groupId>
+                <artifactId>buffer-trigger</artifactId>
+                <version>${buffertrigger.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.school</groupId>
                 <artifactId>xiaohashu-kv-api</artifactId>

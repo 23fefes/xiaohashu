@@ -1,17 +1,16 @@
 package com.school.framework.common.util;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.school.framework.common.contant.DateConstants;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 public class JsonUtils {
 
@@ -60,4 +59,24 @@ public class JsonUtils {
 
         return OBJECT_MAPPER.readValue(jsonStr, clazz);
     }
+
+    /**
+     * 将 JSON 字符串转换为 Map
+     * @param jsonStr
+     * @param keyClass
+     * @param valueClass
+     * @return
+     * @param <K>
+     * @param <V>
+     * @throws Exception
+     */
+    public static <K, V> Map<K, V> parseMap(String jsonStr, Class<K> keyClass, Class<V> valueClass) throws Exception {
+        // 创建 TypeReference，指定泛型类型
+        TypeReference<Map<K, V>> typeRef = new TypeReference<Map<K, V>>() {
+        };
+
+        // 将 JSON 字符串转换为 Map
+        return OBJECT_MAPPER.readValue(jsonStr, OBJECT_MAPPER.getTypeFactory().constructMapType(Map.class, keyClass, valueClass));
+    }
+
 }
