@@ -30,6 +30,9 @@
         <module>xiaohashu-note</module>
         <module>xiaohashu-note/xiaohashu-note-api</module>
         <module>xiaohashu-note/xiaohashu-note-biz</module>
+        <module>xiaohashu-user-relation</module>
+        <module>xiaohashu-user-relation/xiaohashu-user-relation-api</module>
+        <module>xiaohashu-user-relation/xiaohashu-user-relation-biz</module>
     </modules>
 
     <properties>
