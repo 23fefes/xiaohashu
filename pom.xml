@@ -37,6 +37,7 @@
         <module>xiaohashu-count/xiaohashu-count-api</module>
         <module>xiaohashu-count/xiaohashu-count-biz</module>
         <module>xiaohashu-data-align</module>
+        <module>xiaohashu-comment</module>
     </modules>
 
     <properties>
@@ -50,6 +51,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Maven 相关版本号 -->
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+
+        <rocketmq-client.version>4.9.4</rocketmq-client.version>
 
         <!-- 依赖包版本 -->
         <lombok.version>1.18.38</lombok.version>
@@ -96,6 +99,17 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>${rocketmq.version}</version>
+            </dependency>
+            <!-- Rocket MQ 客户端 -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.school</groupId>
+                <artifactId>xiaohashu-comment</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             <!-- Caffeine 本地缓存 -->
             <dependency>

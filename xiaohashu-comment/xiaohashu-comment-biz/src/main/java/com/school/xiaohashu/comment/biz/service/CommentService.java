@@ -1,0 +1,23 @@
+package com.school.xiaohashu.comment.biz.service;
+
+import com.school.framework.common.response.PageResponse;
+import com.school.framework.common.response.Response;
+import com.school.xiaohashu.comment.biz.model.vo.FindCommentItemRspVO;
+import com.school.xiaohashu.comment.biz.model.vo.FindCommentPageListReqVO;
+import com.school.xiaohashu.comment.biz.model.vo.PublishCommentReqVO;
+
+public interface CommentService {
+
+    /**
+     * 发布评论
+     * @param publishCommentReqVO
+     * @return
+     */
+    Response<?> publishComment(PublishCommentReqVO publishCommentReqVO);
+    /**
+     * 评论列表分页查询
+     * @param findCommentPageListReqVO
+     * @return
+     */
+    PageResponse<FindCommentItemRspVO> findCommentPageList(FindCommentPageListReqVO findCommentPageListReqVO);
+}

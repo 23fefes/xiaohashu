@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class JsonUtils {
 
@@ -95,6 +96,24 @@ public class JsonUtils {
             @Override
             public CollectionType getType() {
                 return OBJECT_MAPPER.getTypeFactory().constructCollectionType(List.class, clazz);
+            }
+        });
+    }
+    /**
+     * 将 JSON 字符串解析为指定类型的 Set 对象
+     *
+     * @param jsonStr
+     * @param clazz
+     * @return
+     * @param <T>
+     * @throws Exception
+     */
+    public static <T> Set<T> parseSet(String jsonStr, Class<T> clazz) throws Exception {
+        // 使用 TypeReference 指定 Set<T> 的泛型类型
+        return OBJECT_MAPPER.readValue(jsonStr, new TypeReference<>() {
+            @Override
+            public CollectionType getType() {
+                return OBJECT_MAPPER.getTypeFactory().constructCollectionType(Set.class, clazz);
             }
         });
     }
