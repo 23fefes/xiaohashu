@@ -8,6 +8,36 @@ public class RedisKeyConstants {
     private static final String COUNT_USER_KEY_PREFIX = "count:user:";
 
     /**
+     * 笔记维度计数 Key 前缀
+     */
+    private static final String COUNT_NOTE_KEY_PREFIX = "count:note:";
+
+    /**
+     * 评论维度计数 Key 前缀
+     */
+    private static final String COUNT_COMMENT_KEY_PREFIX = "count:comment:";
+
+    /**
+     * Hash Field: 点赞总数
+     */
+    public static final String FIELD_LIKE_TOTAL = "likeTotal";
+
+    /**
+     * Hash Field: 笔记发布总数
+     */
+    public static final String FIELD_NOTE_TOTAL = "noteTotal";
+
+    /**
+     * Hash Field: 笔记收藏总数
+     */
+    public static final String FIELD_COLLECT_TOTAL = "collectTotal";
+
+    /**
+     * Hash Field: 笔记评论总数
+     */
+    public static final String FIELD_COMMENT_TOTAL = "commentTotal";
+
+    /**
      * Hash Field: 粉丝总数
      */
     public static final String FIELD_FANS_TOTAL = "fansTotal";
@@ -16,30 +46,15 @@ public class RedisKeyConstants {
      * Hash Field: 关注总数
      */
     public static final String FIELD_FOLLOWING_TOTAL = "followingTotal";
-    /**
-     * 笔记维度计数 Key 前缀
-     */
-    private static final String COUNT_NOTE_KEY_PREFIX = "count:note:";
 
     /**
-     * Hash Field: 笔记点赞总数
+     * Hash Field: 子评论总数
      */
-    public static final String FIELD_LIKE_TOTAL = "likeTotal";
+    public static final String FIELD_CHILD_COMMENT_TOTAL = "childCommentTotal";
 
-
-    /**
-     * 构建笔记维度计数 Key
-     *
-     * @param noteId
-     * @return
-     */
-    public static String buildCountNoteKey(Long noteId) {
-        return COUNT_NOTE_KEY_PREFIX + noteId;
-    }
 
     /**
      * 构建用户维度计数 Key
-     *
      * @param userId
      * @return
      */
@@ -48,12 +63,41 @@ public class RedisKeyConstants {
     }
 
     /**
-     * Hash Field: 笔记收藏总数
+     * 构建笔记维度计数 Key
+     * @param noteId
+     * @return
      */
-    public static final String FIELD_COLLECT_TOTAL = "collectTotal";
+    public static String buildCountNoteKey(Long noteId) {
+        return COUNT_NOTE_KEY_PREFIX + noteId;
+    }
+
     /**
-     * Hash Field: 笔记发布总数
+     * 构建评论维度计数 Key
+     * @param commentId
+     * @return
      */
-    public static final String FIELD_NOTE_TOTAL = "noteTotal";
+    public static String buildCountCommentKey(Long commentId) {
+        return COUNT_COMMENT_KEY_PREFIX + commentId;
+    }
+
+    /**
+     * Topic: 评论点赞数更新
+     */
+    String TOPIC_COMMENT_LIKE_OR_UNLIKE = "CommentLikeUnlikeTopic";
+
+    /**
+     * 已发布笔记列表 KEY 前缀
+     */
+    private static final String PUBLISHED_NOTE_LIST_KEY = "note:published:list:";
+
+
+    /**
+     * 构建完整的已发布笔记列表 KEY
+     * @param userId
+     * @return
+     */
+    public static String buildPublishedNoteListKey(Long userId) {
+        return PUBLISHED_NOTE_LIST_KEY + userId;
+    }
 
 }

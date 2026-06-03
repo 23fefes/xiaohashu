@@ -76,4 +76,20 @@ public class RedisKeyConstants {
     public static String buildUserNoteCollectZSetKey(Long userId) {
         return USER_NOTE_COLLECT_ZSET_KEY + userId;
     }
+
+    /**
+     * 已发布笔记列表 KEY 前缀
+     */
+    private static final String PUBLISHED_NOTE_LIST_KEY = "note:published:list:";
+
+
+    /**
+     * 构建完整的已发布笔记列表 KEY
+     * @param userId
+     * @return
+     */
+    public static String buildPublishedNoteListKey(Long userId) {
+        return PUBLISHED_NOTE_LIST_KEY + userId;
+    }
+
 }

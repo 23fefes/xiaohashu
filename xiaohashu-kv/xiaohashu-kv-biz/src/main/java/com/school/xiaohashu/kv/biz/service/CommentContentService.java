@@ -3,6 +3,7 @@ package com.school.xiaohashu.kv.biz.service;
 import com.school.framework.common.response.Response;
 import com.school.xiaohashu.kv.dto.req.BatchAddCommentContentReqDTO;
 import com.school.xiaohashu.kv.dto.req.BatchFindCommentContentReqDTO;
+import com.school.xiaohashu.kv.dto.req.DeleteCommentContentReqDTO;
 
 public interface CommentContentService {
 
@@ -19,4 +20,10 @@ public interface CommentContentService {
      * @return
      */
     Response<?> batchFindCommentContent(BatchFindCommentContentReqDTO batchFindCommentContentReqDTO);
+    /**
+     * 删除评论内容
+     * @param deleteCommentContentReqDTO
+     * @return
+     */
+    Response<?> deleteCommentContent(DeleteCommentContentReqDTO deleteCommentContentReqDTO);
 }
